@@ -12,6 +12,8 @@ import javax.jws.WebService;
 
 
 
+
+
 import com.taekwondo.bdd.Controleur;
 import com.taekwondo.metier.*;
 
@@ -27,59 +29,73 @@ public class ClientLourdImpl implements ClientLourd{
 	}
 
 	public void ajoutCompetition(String nomCompetition, String dateCompetition){
-		Controleur.initConnection();
 		Controleur.ajoutBddCompetition(nomCompetition,dateCompetition);
 	}
 
 	@Override
 	public void ajoutClub(String nomCompetition, String nomClub) {
-		Controleur.initConnection();
-
+		Controleur.ajoutBddClub(nomCompetition, nomClub);
 	}
 
 	@Override
 	public void ajoutCompetiteur(String nomCompetition, String nomClub,
-			String nomCompetiteur, String prenomCompetiteur, int ageCompetiteur,String genre) {
-		Controleur.initConnection();
-		Controleur.ajoutBddCompetiteur(nomCompetition,nomClub,nomCompetition, prenomCompetiteur, ageCompetiteur, genre);
+			String nomCompetiteur, String prenomCompetiteur, int ageCompetiteur,String genre, int categorie) {
+		Controleur.ajoutBddCompetiteur(nomCompetition,nomClub,nomCompetiteur, prenomCompetiteur, ageCompetiteur, genre, categorie);
 	}
 
 	@Override
 	public int recuperationCompetition(String nomCompetition) {
-		Controleur.initConnection();
 		return Controleur.retourneCompetition(nomCompetition);
 	}
 
 	@Override
 	public ArrayList<Competition> recuperationListeCompetition() {
-		Controleur.initConnection();
 		return Controleur.retourneListeCompetition();
 	}
 
 	@Override
 	public ArrayList<Club> recuperationListeClub(int idCompetition) {
-		Controleur.initConnection();
 		return Controleur.retourneListeClub(idCompetition);
 	}
 
 	@Override
 	public ArrayList<Competiteur> recuperationListeCompetiteur(int idClub) {
-		Controleur.initConnection();
 		return Controleur.retourneListeCompetiteur(idClub);
 	}
 
 	@Override
-	public void ajoutBddCategorie(String nomCompetition, String nomcategorie,
+	public void ajoutCategorie(String nomCompetition, String nomcategorie,
 			int ageMini, int ageMaxi) {
-		Controleur.initConnection();
 		Controleur.ajoutBddCategorie(nomCompetition, nomcategorie, ageMini, ageMaxi);
 
 	}
 
 	@Override
 	public ArrayList<Categorie> recuperationListeCategorie(int idCompetition) {
-		Controleur.initConnection();
 		return Controleur.retourneListeCategorie(idCompetition);
 	}
+	
+	@Override
+	public int retrouveIdCategorie(String categorie) {
+		return Controleur.retrouveIdCategorie(categorie);
+	}
+
+	@Override
+	public void supprimCompetition(String competition) {
+		Controleur.supprimCompetition(competition);
+	}
+
+	@Override
+	public void closeBdd() {
+		Controleur.CloseConnection();
+	}
+
+	@Override
+	public String retourneNomCategorie(int idcategorie) {
+		return Controleur.retrouveNomCategorie(idcategorie);
+	}
+
+
+	
 }  
 

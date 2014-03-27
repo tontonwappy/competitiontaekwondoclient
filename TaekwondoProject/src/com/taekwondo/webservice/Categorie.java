@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Categorie implements  Serializable {
 
 	private static final long serialVersionUID = -6003726445798208474L;
+	private int id;
 	private String nom;
 	private int ageMini;
 	private int ageMaxi;
@@ -40,13 +41,22 @@ public class Categorie implements  Serializable {
 		this.ageMaxi = ageMaxi;
 	}
 
-	public Categorie(String nom, int ageMini, int ageMaxi){
+	public Categorie(String nom, int ageMini, int ageMaxi,int id){
 		this.nom=nom;
 		this.ageMini=ageMini;
 		this.ageMaxi=ageMaxi;
+		this.id=id;
 	}
 	
 	public Categorie(){}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 
 }

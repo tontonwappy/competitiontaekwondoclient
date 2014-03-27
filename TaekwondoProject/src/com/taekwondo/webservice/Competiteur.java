@@ -17,7 +17,7 @@ public class Competiteur  implements  Serializable {
 	private String prenom;
 	private int age;
 	private String genre;
-	private String categorie;
+	private int categorie;
 	
 	@Override
 	public String toString() {
@@ -25,7 +25,7 @@ public class Competiteur  implements  Serializable {
 				+ age + ", genre=" + genre + ", categorie=" + categorie + "]";
 	}
 
-	public Competiteur( String nom, String prenom, int age,String genre,String categorie){
+	public Competiteur( String nom, String prenom, int age,String genre,int categorie){
 		this.nom=nom;
 		this.prenom=prenom;
 		this.age=age;
@@ -33,6 +33,14 @@ public class Competiteur  implements  Serializable {
 		this.categorie=categorie;
 	}
 	
+	public int getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(int categorie) {
+		this.categorie = categorie;
+	}
+
 	public Competiteur() {
 		// TODO Auto-generated constructor stub
 	}
@@ -71,14 +79,7 @@ public class Competiteur  implements  Serializable {
 //	}
 
 
-	public String getCategorie() {
-		return categorie;
-	}
-
-	public void setCategorie(String categorie) {
-		this.categorie = categorie;
-	}
-
+	
 
 
 	

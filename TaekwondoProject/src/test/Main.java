@@ -16,7 +16,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Controleur.initConnection();
+		Controleur.initConnection();	
+		Controleur.supprimCompetition("Trophe");	
+		//for(int x=88;x<95;x++){
+		//	System.out.println(Controleur.retrouveNomCategorie(x));
+		//}
+		
+		//System.out.println(Controleur.retrouveIdCategorie("Poussins"));
 		//Controleur.ajoutBddCompetition("comp2", "le 10");
 		//Controleur.ajoutBddClub("comp2", "yoloteam2");
 		//Controleur.ajoutBddCompetiteur("comp2", "yoloteam2", "darkligt2", "cmoi", 20, "M");
@@ -43,12 +49,12 @@ public class Main {
 //			System.out.println(comp.toString());
 //		}
 		/***********************/
-		ArrayList<Categorie> list =Controleur.retourneListeCategorie(11);
-		for (Categorie cat : list){
-			System.out.println(cat.getNom());
-	
-		}
-	
+//		ArrayList<Categorie> list =Controleur.retourneListeCategorie(11);
+//		for (Categorie cat : list){
+//			System.out.println(cat.getNom());
+//	
+//		}
+		Controleur.CloseConnection();
 	}
 
 }

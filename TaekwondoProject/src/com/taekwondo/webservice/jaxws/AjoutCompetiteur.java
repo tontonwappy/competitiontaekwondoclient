@@ -15,7 +15,8 @@ import javax.xml.bind.annotation.XmlType;
     "arg2",
     "arg3",
     "arg4",
-    "arg5"
+    "arg5",
+    "arg6"
 })
 public class AjoutCompetiteur {
 
@@ -31,6 +32,8 @@ public class AjoutCompetiteur {
     private int arg4;
     @XmlElement(name = "arg5", namespace = "")
     private String arg5;
+    @XmlElement(name = "arg6", namespace = "")
+    private int arg6;
 
     /**
      * 
@@ -138,6 +141,24 @@ public class AjoutCompetiteur {
      */
     public void setArg5(String arg5) {
         this.arg5 = arg5;
+    }
+
+    /**
+     * 
+     * @return
+     *     returns int
+     */
+    public int getArg6() {
+        return this.arg6;
+    }
+
+    /**
+     * 
+     * @param arg6
+     *     the value for the arg6 property
+     */
+    public void setArg6(int arg6) {
+        this.arg6 = arg6;
     }
 
 }
