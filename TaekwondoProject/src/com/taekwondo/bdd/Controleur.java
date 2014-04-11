@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import com.taekwondo.metier.*;
 import com.taekwondo.webservice.Categorie;
@@ -14,6 +16,8 @@ import com.taekwondo.webservice.Competiteur;
 import com.taekwondo.webservice.Competition;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -85,7 +89,7 @@ public class Controleur {
 	public static void ajoutBddCompetition(String nomCompetition,String dateCompetition){
 		try {	
 			int m = 0;
-			m=s.executeUpdate("INSERT INTO competition VALUES ('"+nomCompetition+"','"+dateCompetition+"',default);");	
+			m=s.executeUpdate("INSERT INTO competition VALUES ('"+nomCompetition+"','"+dateCompetition+"',default,current_date,current_time);");	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -204,7 +208,7 @@ public class Controleur {
 			stmt = c.createStatement();		
 			ResultSet rs = stmt.executeQuery("select * from combattant WHERE \"Club_idClub\"='"+idClub+"'");			
 			while (rs.next()) {
-				list.add(new Competiteur(rs.getString("nomCombattant"),rs.getString("prenomCombattant"),rs.getInt("ageCombattant"),rs.getString("genreComattant"),rs.getInt("categorieCombattant")));       
+				list.add(new Competiteur(rs.getString("nomCombattant"),rs.getString("prenomCombattant"),rs.getInt("ageCombattant"),rs.getString("genreComattant"),rs.getInt("categorieCombattant"),rs.getInt("idCombattant")));       
 			}	
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -282,6 +286,138 @@ public class Controleur {
 			e.printStackTrace();
 		}	
 		return nomCategorie;
+	}
+
+
+
+	public static void majValCompetition(int idCompetition) {
+		try {	
+			Statement stmt = null;
+			stmt = c.createStatement();		
+			stmt.executeUpdate("Update competition  SET \"majDate\"=current_date, \"majHeure\"=current_time WHERE \"idCompetition\"='"+idCompetition+"'");			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+	}
+
+
+	public static ArrayList<Competiteur> retourneTOUTCompetiteur (){	
+		ArrayList<Competiteur> list=new ArrayList<Competiteur>();
+		try {	
+			Statement stmt = null;
+			stmt = c.createStatement();		
+			ResultSet rs = stmt.executeQuery("select * from combattant");
+			while (rs.next()) {
+				list.add(new Competiteur(rs.getString("nomCombattant"),rs.getString("prenomCombattant"),rs.getInt("ageCombattant"),rs.getString("genreComattant"),rs.getInt("categorieCombattant"),rs.getInt("idCombattant")));       
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		return list;
+	}
+
+	//Verifie si leur de la mise a jour du serveur est la meme que la valeur du client lourd
+	public static boolean isUptodate(String nomCompetition,String dateMaj,String heureMaj){
+		String dateBdd = null;
+		String heureBdd=null;
+
+		int anneeMajWeb;
+		int moisMajWeb;
+		int jourMajWeb;
+		int heureMajWeb;
+		int minuteMajWeb;
+
+		int anneeMajLocale;
+		int moisMajLocale;
+		int jourMajLocale;
+		int heureMajLocale;
+		int minuteMajLocale;
+
+		boolean uptodate=false;
+
+		try {	
+			Statement stmt = null;
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from competition WHERE \"nomCompetition\"='"+nomCompetition+"'");
+			while (rs.next()) {
+				dateBdd=rs.getString("majDate");
+				heureBdd=rs.getString("majHeure");
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+
+
+		if(!(dateMaj==null)){
+			String dateSplitWeb[]=dateBdd.split("-");
+			String heureSplitWeb[]=heureBdd.split(":");
+			String dateSplitLocale[]=dateMaj.split("-");
+			String heureSplitLocale[]=heureMaj.split(":");
+
+			anneeMajWeb=Integer.parseInt(dateSplitWeb[0]);
+			moisMajWeb=Integer.parseInt(dateSplitWeb[1]);
+			jourMajWeb=Integer.parseInt(dateSplitWeb[2]);
+			heureMajWeb=Integer.parseInt(heureSplitWeb[0]);
+			minuteMajWeb=Integer.parseInt(heureSplitWeb[1]);
+
+			anneeMajLocale=Integer.parseInt(dateSplitLocale[0]);
+			moisMajLocale=Integer.parseInt(dateSplitLocale[1]);
+			jourMajLocale=Integer.parseInt(dateSplitLocale[2]);
+			heureMajLocale=Integer.parseInt(heureSplitLocale[0]);
+			minuteMajLocale=Integer.parseInt(heureSplitLocale[1]);
+
+			if(anneeMajWeb==anneeMajLocale && moisMajWeb==moisMajLocale && jourMajWeb==jourMajLocale && heureMajWeb==heureMajLocale && minuteMajWeb==minuteMajLocale){
+				uptodate=true;
+			}
+		}
+
+		return uptodate;	
+	}
+	
+	public static ArrayList<String> returnDateEtHeure  (String nomCompetition){	
+
+		String dateBdd = null;
+		String heureBdd=null;
+
+		int anneeMajWeb;
+		int moisMajWeb;
+		int jourMajWeb;
+		int heureMajWeb;
+		int minuteMajWeb;
+
+
+		try {	
+			Statement stmt = null;
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from competition WHERE \"nomCompetition\"='"+nomCompetition+"'");
+			while (rs.next()) {
+				dateBdd=rs.getString("majDate");
+				heureBdd=rs.getString("majHeure");
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+
+
+			String dateSplitWeb[]=dateBdd.split("-");
+			String heureSplitWeb[]=heureBdd.split(":");
+
+
+			anneeMajWeb=Integer.parseInt(dateSplitWeb[0]);
+			moisMajWeb=Integer.parseInt(dateSplitWeb[1]);
+			jourMajWeb=Integer.parseInt(dateSplitWeb[2]);
+			heureMajWeb=Integer.parseInt(heureSplitWeb[0]);
+			minuteMajWeb=Integer.parseInt(heureSplitWeb[1]);
+
+
+			ArrayList <String> dateHeure=new ArrayList<String>();
+			dateHeure.add(anneeMajWeb+"-"+moisMajWeb+"-"+jourMajWeb);
+			dateHeure.add(heureMajWeb+":"+minuteMajWeb);
+		
+
+		return dateHeure;	
+	
 	}
 
 

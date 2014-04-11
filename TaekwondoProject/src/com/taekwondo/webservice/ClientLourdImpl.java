@@ -14,6 +14,9 @@ import javax.jws.WebService;
 
 
 
+
+
+
 import com.taekwondo.bdd.Controleur;
 import com.taekwondo.metier.*;
 
@@ -62,6 +65,11 @@ public class ClientLourdImpl implements ClientLourd{
 	public ArrayList<Competiteur> recuperationListeCompetiteur(int idClub) {
 		return Controleur.retourneListeCompetiteur(idClub);
 	}
+	
+	@Override
+	public ArrayList<Competiteur> recuperationTOUTCompetiteurT() {
+		return Controleur.retourneTOUTCompetiteur();
+	}
 
 	@Override
 	public void ajoutCategorie(String nomCompetition, String nomcategorie,
@@ -92,7 +100,19 @@ public class ClientLourdImpl implements ClientLourd{
 
 	@Override
 	public String retourneNomCategorie(int idcategorie) {
-		return Controleur.retrouveNomCategorie(idcategorie);
+		return Controleur.retrouveNomCategorie( idcategorie);
+	}
+
+	@Override
+	public boolean isUpToDate(String nomCompetition, String dateMaj,
+			String heureMaj) {
+		// TODO Auto-generated method stub
+		return Controleur.isUptodate(nomCompetition, dateMaj, heureMaj);
+	}
+
+	@Override
+	public ArrayList<String> getHeureDate(String nomCompetition) {	
+		return Controleur.returnDateEtHeure(nomCompetition);
 	}
 
 

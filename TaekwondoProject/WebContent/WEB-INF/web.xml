@@ -26,4 +26,25 @@
      <servlet-name>TaekwondoWS</servlet-name>  
      <url-pattern>/TaekwondoWS</url-pattern>  
    </servlet-mapping>
+   
+   
+  <servlet>
+    <servlet-name>ServletWeb</servlet-name>
+    <servlet-class>com.clientweb.ServletWeb</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletWeb</servlet-name>
+    <url-pattern>/index</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ServletBackOffice</servlet-name>
+    <servlet-class>com.clientweb.ServletBackOffice</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletBackOffice</servlet-name>
+    <url-pattern>/backoffice</url-pattern>
+  </servlet-mapping>  
+
+   
 </web-app>

@@ -22,10 +22,13 @@ public interface ClientLourd {
  @WebMethod public ArrayList<Competition> recuperationListeCompetition(); 
  @WebMethod public ArrayList<Club> recuperationListeClub(int idCompetition); 
  @WebMethod public ArrayList<Competiteur> recuperationListeCompetiteur(int idClub); 
+ @WebMethod public ArrayList<Competiteur> recuperationTOUTCompetiteurT(); 
  @WebMethod public ArrayList<Categorie> recuperationListeCategorie(int idCompetition); 
  @WebMethod public int retrouveIdCategorie(String categorie);
  @WebMethod public void supprimCompetition(String competition);
  @WebMethod public void closeBdd();
  @WebMethod public String retourneNomCategorie(int idcategorie);
+ @WebMethod public boolean isUpToDate(String nomCompetition,String dateMaj,String heureMaj);
+ @WebMethod public ArrayList<String> getHeureDate(String nomCompetition);
 }  
 

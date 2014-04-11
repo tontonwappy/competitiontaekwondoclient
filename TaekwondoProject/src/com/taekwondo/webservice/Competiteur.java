@@ -18,6 +18,7 @@ public class Competiteur  implements  Serializable {
 	private int age;
 	private String genre;
 	private int categorie;
+	private int id;
 	
 	@Override
 	public String toString() {
@@ -25,12 +26,13 @@ public class Competiteur  implements  Serializable {
 				+ age + ", genre=" + genre + ", categorie=" + categorie + "]";
 	}
 
-	public Competiteur( String nom, String prenom, int age,String genre,int categorie){
+	public Competiteur( String nom, String prenom, int age,String genre,int categorie,int id){
 		this.nom=nom;
 		this.prenom=prenom;
 		this.age=age;
 		this.genre=genre;
 		this.categorie=categorie;
+		this.setId(id);
 	}
 	
 	public int getCategorie() {
@@ -71,6 +73,14 @@ public class Competiteur  implements  Serializable {
 
 	public void setGenre(String genre) {
 		this.genre = genre;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 
